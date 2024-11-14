@@ -1,12 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import { getFirestore } from "firebase-admin/firestore"
 import { NotFoundError } from "../errors/not-found.error";
-
-type User = {
-  id: number;
-  nome: string;
-  email: string;
-}
+import { User } from "../models/user.model";
 
 export class UsersController {
   static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -66,6 +61,6 @@ export class UsersController {
   static async delete(req: Request, res: Response) {
     let userId = req.params.id
     await getFirestore().collection("users").doc(userId).delete()
-    res.status(204).end()
+    res.status(204).end("Usuário deletado com sucesso")
   }
 }
