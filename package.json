@@ -16,7 +16,7 @@
     "celebrate": "^15.0.3",
     "express": "^4.21.0",
     "express-async-handler": "^1.2.0",
-    "firebase-admin": "^12.5.0"
+    "firebase-admin": "^12.7.0"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.7",

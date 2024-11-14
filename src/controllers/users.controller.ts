@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express"
 import { getFirestore } from "firebase-admin/firestore"
-import { ValidationError } from "../errors/validation.error";
 import { NotFoundError } from "../errors/not-found.error";
 
 type User = {

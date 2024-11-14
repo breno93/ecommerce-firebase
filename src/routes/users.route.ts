@@ -10,6 +10,7 @@ userRoutes.get("/users/:id", asyncHandler(UsersController.getById))
 userRoutes.post("/users", celebrate({
   [Segments.BODY]: Joi.object().keys({
     nome: Joi.string().required(),
+    email: Joi.string().email().required()
   })
 }), asyncHandler(UsersController.save))
 userRoutes.put("/users/:id", asyncHandler(UsersController.update))
