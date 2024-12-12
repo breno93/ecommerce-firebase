@@ -32,7 +32,6 @@ export class UserService {
   }
 
   async update(id: string, user: User) {
-
     const _user = await this.userRepository.getById(id)
     if (!_user) {
       throw new NotFoundError("Usuário não encontrado!")
@@ -40,7 +39,8 @@ export class UserService {
     _user.nome = user.nome
     _user.email = user.email
 
-    this.userRepository.update(_user)
+    await this.authService.update(id, user)
+    await this.userRepository.update(_user)
   }
 
   async delete(id: string): Promise<void> {
