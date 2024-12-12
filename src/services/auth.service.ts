@@ -3,7 +3,7 @@ import { EmailAlreadyExistsError } from "../errors/email-already-exist.error";
 import { UnauthorizedError } from "../errors/unauthorized.error";
 import { User } from "../models/user.model";
 import { getAuth, UpdateRequest, UserRecord } from "firebase-admin/auth"
-import { getAuth as getFirebaseAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth"
+import { getAuth as getFirebaseAuth, sendPasswordResetEmail, signInWithEmailAndPassword, UserCredential } from "firebase/auth"
 
 
 export class AuthService {
@@ -50,5 +50,10 @@ export class AuthService {
 
     async delete(id: string) {
         await getAuth().deleteUser(id)
+    }
+
+    async recovery(email: string) {
+        //sendPasswordResetEmail é uma função do firebase, o getFireBaseAuth nao é o do admin é do proprio firebase
+        await sendPasswordResetEmail(getFirebaseAuth(), email)
     }
 }
