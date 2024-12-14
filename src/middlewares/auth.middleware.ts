@@ -9,7 +9,7 @@ export const auth = (app: express.Express) => {
 
     //aqui estou utilizando o split p/ transformar a string em um array e quebrando ela no parametro Bearer e a segunda parte o Token
     const token = req.headers.authorization?.split("Bearer ")[1];
-    if (req.method === "POST" && req.url.endsWith("/auth/login")) {
+    if (req.method === "POST" && req.url.endsWith("/auth/login") || req.url.endsWith("/auth/recovery")) {
       return next()
     }
 
