@@ -4,6 +4,7 @@ import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { UserService } from "../services/users.service.js";
 import { ForbiddenError } from "../errors/forbidden.error.js";
 
+
 export const auth = (app: express.Express) => {
   app.use(async (req: Request, res: Response, next: NextFunction) => {
 

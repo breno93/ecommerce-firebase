@@ -4,6 +4,7 @@ import asyncHandler from "express-async-handler"
 import { celebrate, Segments } from "celebrate";
 import { newUserSchema, UpdateUserSchema } from "../models/user.model.js";
 
+
 export const userRoutes = Router()
 
 userRoutes.get("/users", asyncHandler(UsersController.getAll));

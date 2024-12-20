@@ -10,7 +10,6 @@ export class AuthService {
 
     async create(user: User): Promise<UserRecord> {
 
-
         return getAuth().createUser({
             email: user.email,
             password: user.password,
