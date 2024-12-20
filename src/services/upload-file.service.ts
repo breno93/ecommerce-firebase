@@ -27,6 +27,9 @@ export class UploadFileService {
       destination: this.path + fileName
     })
 
+    //unlinkSync é utilizado para remover as img criadas no corpo do nosso projeto
+    fs.unlinkSync(fileName);
+
     return getDownloadURL(uploadResponse[0])
 
   }
