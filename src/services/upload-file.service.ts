@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { getStorage, getDownloadURL } from "firebase-admin/storage"
 import { fileTypeFromBuffer } from "file-type";
+import { randomUUID } from "node:crypto";
 
 
 
@@ -15,7 +16,9 @@ export class UploadFileService {
     const fileType = await fileTypeFromBuffer(fileBuffer)
 
     //Aqui eu estou gravando essa imagem no disco, ou seja para que seja possivel fazer o upload dessa img para o firestorage
-    const fileName = `image.${fileType?.ext}`
+    //randomUUID é uma função do proprio javascript, ele gera um hash dinamico para que possamos substituir pelo nome image.
+    //...ou seja, agora a image está sendo salva por um id randomico, para que nao subscreva no nosso storage
+    const fileName = `${randomUUID().toString()}.${fileType?.ext}`
     fs.writeFileSync(fileName, fileBuffer)
 
     //aqui estou fazendo uma referencia ao nosso BUCKET no Fire Storage
