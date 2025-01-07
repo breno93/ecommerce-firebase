@@ -25,14 +25,14 @@ export class CategoriesController {
     let category = req.body
     await new CategoryService().update(categoryId, category)
     res.send({
-      message: "Categoria alterada com sucesso!"
+      message: "Categoria atualizada com sucesso!"
     })
   }
 
   static async delete(req: Request, res: Response) {
     const categoryId = req.params.id
     await new CategoryService().delete(categoryId)
-    res.status(204).end();
+    res.status(204).end("Categoria deletada com sucesso!");
   }
 
 }
