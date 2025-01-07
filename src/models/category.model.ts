@@ -1,3 +1,4 @@
+import { Joi } from "celebrate"
 
 
 export type Category = {
@@ -5,3 +6,8 @@ export type Category = {
   descricao: string
   ativa: boolean
 }
+
+export const newCategorySchema = Joi.object().keys({
+  descricao: Joi.string().required(),
+  ativa: Joi.boolean().required()
+})
