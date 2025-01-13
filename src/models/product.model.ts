@@ -15,9 +15,9 @@ export type Product = {
 
 export const newProductSchema = Joi.object().keys({
   nome: Joi.string().min(3).required(),
-  descricao: Joi.string().allow(null),
+  descricao: Joi.string().allow(null).default(null),
   preco: Joi.number().positive().required(),
-  imagem: Joi.string().base64().allow(null),
+  imagem: Joi.string().base64().allow(null).default(null),
   categoria: Joi.object().keys({
     id: Joi.string().required()
   }).required(),
@@ -26,9 +26,9 @@ export const newProductSchema = Joi.object().keys({
 
 export const updateProductSchema = Joi.object().keys({
   nome: Joi.string().min(3).required(),
-  descricao: Joi.string().allow(null),
+  descricao: Joi.string().allow(null).default(null),
   preco: Joi.number().positive().required(),
-  imagem: Joi.string().base64().allow(null),
+  imagem: Joi.string().base64().allow(null).default(null),
   categoria: Joi.object().keys({
     id: Joi.string().required()
   }).required(),
