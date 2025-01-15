@@ -22,6 +22,7 @@ export class ProductsController {
   static async update(req: Request, res: Response) {
     let productId = req.params.id
     let product = req.body
+
     await new ProductService().update(productId, product)
     res.send({
       message: "Produto atualizado com sucesso"

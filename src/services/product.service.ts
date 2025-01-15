@@ -2,16 +2,20 @@ import { NotFoundError } from "../errors/not-found.error.js"
 import { Product } from "../models/product.model.js"
 import { CategoryRepository } from "../repositories/category.repository.js"
 import { ProductRepository } from "../repositories/product.repository.js"
+import { isStorageUrlValid } from "../utils/validation-utils.js"
+import { UploadFileService } from "./upload-file.service.js"
 
 
 export class ProductService {
 
   private productRepository: ProductRepository
   private categoryRepository: CategoryRepository
+  private uploadFileService: UploadFileService
 
   constructor() {
     this.productRepository = new ProductRepository()
     this.categoryRepository = new CategoryRepository()
+    this.uploadFileService = new UploadFileService()
   }
 
   async getAll(): Promise<Product[]> {
@@ -27,31 +31,39 @@ export class ProductService {
   }
 
   async save(product: Product) {
-    const category = await this.getCategoryById(product.categoria.id)
-    product.categoria = category
+    const categoria = await this.getCategoriaById(product.categoria.id)
+    product.categoria = categoria
+    //Aqui eu estou verificando a existencia de uma imagem no e atualizando com a URL vinda do cloudstorage
+    if (product.imagem) {
+      product.imagem = await this.uploadFileService.upload(product.imagem)
+    }
     await this.productRepository.save(product)
   }
 
   async update(id: string, product: Product) {
     const _product = await this.getById(id)
-    const category = await this.getCategoryById(product.categoria.id)
+    const categoria = await this.getCategoriaById(product.categoria.id)
+
+    if (product.imagem && !isStorageUrlValid(product.imagem)) {
+      product.imagem = await this.uploadFileService.upload(product.imagem)
+    }
 
     _product.nome = product.nome
     _product.descricao = product.descricao
     _product.imagem = product.imagem
     _product.preco = product.preco
-    _product.categoria = category
+    _product.categoria = categoria
     _product.ativa = product.ativa
 
     await this.productRepository.update(_product)
   }
 
-  private async getCategoryById(id: string) {
-    const category = await this.categoryRepository.getById(id)
-    if (!category) {
+  private async getCategoriaById(id: string) {
+    const categoria = await this.categoryRepository.getById(id)
+    if (!categoria) {
       throw new NotFoundError("Categoria não encontrada")
     }
-    return category
+    return categoria
   }
 
   async delete(id: string) {
