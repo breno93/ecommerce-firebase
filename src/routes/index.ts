@@ -4,6 +4,7 @@ import { authRoutes } from "./auth.route.js"
 import { companyRoutes } from "./companies.route.js"
 import { categoryRoutes } from "./categories.routes.js"
 import { productRoutes } from "./product.route.js"
+import { paymentMethodsRoutes } from "./payment-methods.routes.js"
 
 
 export const routes = (app: express.Express) => {
@@ -13,4 +14,5 @@ export const routes = (app: express.Express) => {
   app.use(companyRoutes)
   app.use(categoryRoutes)
   app.use(productRoutes)
+  app.use(paymentMethodsRoutes)
 }

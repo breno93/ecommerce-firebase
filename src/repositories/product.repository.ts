@@ -6,7 +6,7 @@ export class ProductRepository {
   private collection: CollectionReference
 
   //Define o método construtor da classe, 
-  // que é chamado automaticamente quando uma instância da classe é criada.
+  //que é chamado automaticamente quando uma instância da classe é criada.
   constructor() {
     //Acessa a coleção chamada products no Firestore.
     this.collection = getFirestore().collection("products")
